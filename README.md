@@ -7,7 +7,28 @@ With a rise of blockchain protocols and smart contract technology there was an e
 Despite its many security features Clarity could be considered to as a bottleneck for mass adoption by existing global developer community. For some there might be a decent learning curve to conceptualize functional programming and familiarize with a new unusual syntax. To provide a smooth smart contract developer experience we a proposing to desing and create a subset of JavaScript called CrispyScript, that meant it's just a simplified JavaScript without some features.
 
 ## Examples
-Let's compare implementing a common `Counter` example written in Clarity:
+Let's compare implementing a common `HelloWorld` example written in Clarity:
+```lisp
+(define-public (say-hi)
+   (ok "hello world"))
+
+(define-public (echo-number (val int))
+   (ok val))
+```
+and in CrispyScript:
+```javascript
+import { definePublic, Int, ok, typed } from 'CrispyScript'
+
+definePublic(function sayHi() {
+  return ok("hello world")
+})
+
+definePublic(typed(Int)(function echoNumber(val) {
+  return ok(val)
+}))
+```
+
+Also `Counter` example written in Clarity:
 ```lisp
 (define-data-var counter int 0)
 
@@ -47,24 +68,23 @@ definePublic(function getCounter() {
 
 ```
 
-And `HelloWorld` example written in Clarity:
-```lisp
-(define-public (say-hi)
-   (ok "hello world"))
+## A subset of JavaScript
+As you can see above CrispyScript is looking very familiar for any modern developer and able to run and compile everywhere without any problem. But there are some limitations and specifics imposed to keep full compatibility with Clarity. For example there are no `for` or `while` loops (use `.filter`, `.map`, `.reduce`), variables must be declared with things like `defineData`, function parameters are `typed` and return value is wrapped in `ok` statement and functions are exported with `definePublic` wrapper.
 
-(define-public (echo-number (val int))
-   (ok val))
-```
-and in CrispyScript:
+## Comes with a framework 
+CrispyScript comes with a framework that provides equvivalent for every Clarity native [function or keyword](https://docs.blockstack.org/core/smart/clarityref). For example for working with `map` data structure you could use:
 ```javascript
-import { definePublic, Int, ok, typed } from 'CrispyScript'
+import { defineMap, Int } from 'CrispyScript'
 
-definePublic(function sayHi() {
-  return ok("hello world")
-})
-
-definePublic(typed(Int)(function echoNumber(val) {
-  return ok(val)
-}))
+const map = defineMap({key: Int}, {value: Int})
+map.insert({key: 1}, {value: 10})
 ```
 
+which would work as intended in any JS environment or could compile to Clarity:
+```lisp
+(define-map map ((key int)) ((value int)))
+(map-insert map (tuple (key 1)) (tuple (value 10))) 
+```
+
+## Compiling Clarity into CrispyScript
+Following the same desing principles would make it possible to compile any Clarity code into CrispyScript and be able to run it in browser or node. This would open many possibilities like writing and testing Clarity/CrispyScript smart contracts right in browser and even creating a version of Stacks 2.0 protocol in JavaScript as an alternative core implementation.
