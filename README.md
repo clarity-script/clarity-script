@@ -1,3 +1,5 @@
+
+![Logo](https://avatars0.githubusercontent.com/u/67481887?s=200&v=4)
 # CrispyScript Proposal
 Proposal for creating a JavaScript compatible language that compiles to [Clarity](https://clarity-lang.org/)
 
