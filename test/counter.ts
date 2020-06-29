@@ -5,7 +5,7 @@ describe("counter contract test suite", () => {
   let provider: Provider;
   before(async () => {
     provider = await ProviderRegistry.createProvider();
-    counterClient = new Client("SP3GWX3NE58KXHESRYE4DYQ1S31PQJTCRXB3PE9SB.counter", "counter", provider);
+    counterClient = new Client("SP3GWX3NE58KXHESRYE4DYQ1S31PQJTCRXB3PE9SB.counter", "compiled/counter", provider);
   });
   it("should have a valid syntax", async () => {
     await counterClient.checkContract();

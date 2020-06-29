@@ -16,14 +16,14 @@ function setContext(context) {
 }
 
 function defineData(name, Type, defaultValue) {
-  if (!Type(defaultValue)) throw `Wrong type for defining ${name}: ${typeof defaultValue}`
+  if (!Type(defaultValue)) throwError(`Wrong type for defining ${name}: ${typeof defaultValue}`)
   if (_context.data[name] == null) _context.data[name] = defaultValue;
 
   return {
     get: () => _context.data[name],
     set: (value) => Type(value) ?
       _context.data[value]
-      : throw `Wrong type for setting ${name}: ${typeof value}`
+      : throwError(`Wrong type for setting ${name}: ${typeof value}`)
   }
 }
 
@@ -37,6 +37,7 @@ function Int(value) {
 }
 
 function ok(response) {
+  // TODO commit context changes
   return response
 }
 
@@ -44,8 +45,12 @@ function typed(...types) {
   return f => (...args) =>
     args.every((arg, i) => types[i] && types[i](arg) ) ?
       f(...args)
-      : throw `Wrong types ${JSON.stringify(args)}`
+      : throwError(`Wrong argument types: ${args.map((arg) => typeof arg)}`)
 }
 
+
+function throwError (error) {
+  throw new Error(error)
+}
 
 export {getContext, setContext, defineData, definePublic, Int, ok, typed}

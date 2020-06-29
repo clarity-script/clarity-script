@@ -1,29 +1,36 @@
 const { assign } = Object
 
 function defineData(name, Type, defaultValue) {
+  const hyphenName = name.replace(/"/g, '').replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)
   return assign(
-    Object(`(define-data-var ${name} ${Type} ${defaultValue})`),
+    Object(`(define-data-var ${hyphenName} ${Type} ${defaultValue})\n`),
      {
-      get: () => `(define-data-var ${name} ${Type} ${defaultValue})`,
-      set: (value) => Type(defaultValue) ?
-        context.data[name] = value
-        : throw 'Wrong Type'
+      get: () => `(var-get ${hyphenName})`,
+      set: (value) => `(var-set ${hyphenName} ${value})`,
     }
   )
 }
 
 function definePublic(f) {
-  context.publicExports[f.name] = f
-  return f
+  return `(define-public ${f})\n\n`
 }
 
-function Int(value) {
-  return typeof value === 'number'
+function Int() {
+  return 'int'
 }
 
 function ok(response) {
-  return response
+  return `(ok ${response})`
+}
+
+function typed(...types) {
+  return (f, context)=> {
+    context.typed.types = types
+    const result = f()
+    context.typed.types = []
+    return result
+  }
 }
 
 
-export {defineData, definePublic, Int, ok}
+export {defineData, definePublic, Int, ok, typed}

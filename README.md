@@ -8,7 +8,18 @@ With a rise of blockchain protocols and smart contract technology there was an e
 
 Despite its many security features Clarity could be considered to as a bottleneck for mass adoption by existing global developer community. For some there might be a decent learning curve to conceptualize functional programming and familiarize with a new unusual syntax. To provide a smooth smart contract developer experience we a proposing to desing and create a subset of JavaScript called ClarityScript, that meant it's just a simplified JavaScript without some features.
 
-## Examples
+## Working demo
+1. Clone this repo into a folder and run  
+`$ npm install`
+2. Explore `counter.clar.js` and `hello-world.clar.js` in `contracts/` folder
+3. To compile ClarityScript into Clarity run  
+`$ npm run compile`  
+You can see compiled contracts in `contracts/compiled/` folder
+4. To test compiled `counter.clar` contract please run  
+`$ npm test`
+
+
+## Overview
 Let's compare implementing a common `HelloWorld` example written in Clarity:
 ```lisp
 (define-public (say-hi)
