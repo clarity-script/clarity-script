@@ -7,7 +7,3 @@ readdirSync('./contracts')
   writeFileSync(`./contracts/compiled/${name.replace(/.js$/, '')}`,
     compile(readFileSync(`./contracts/${name}`).toString()))
 )
-
-// console.log(compile(readFileSync('../../contracts/counter.clar.js').toString()))
-// console.log('\n\n')
-//console.log(compile(readFileSync('../../contracts/hello-world.clar.js').toString()))
