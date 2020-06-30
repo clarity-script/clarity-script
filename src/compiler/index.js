@@ -36,9 +36,9 @@ function processAst(ast) {
 
 
 const tokenProcessor = {
-  Program: (ast)=> ast.body.map(processAst).join(''),
+  Program: (ast) => ast.body.map(processAst).join(''),
 
-  ImportDeclaration: (ast)=>
+  ImportDeclaration: (ast) =>
     ast.source.value.includes('clarity-script') ?
       ''
       : throwError(`Unexpected import from ${ast.source.value}`),

@@ -42,10 +42,14 @@ function ok(response) {
 }
 
 function typed(...types) {
-  return f => (...args) =>
-    args.every((arg, i) => types[i] && types[i](arg) ) ?
-      f(...args)
-      : throwError(`Wrong argument types: ${args.map((arg) => typeof arg)}`)
+  return f => {
+    const wrapped = (...args) =>
+      args.every((arg, i) => types[i] && types[i](arg) ) ?
+        f(...args)
+        : throwError(`Wrong argument types: ${args.map((arg) => typeof arg)}`)
+    wrapped.name = f.name
+    return wrapped
+  }
 }
 
 

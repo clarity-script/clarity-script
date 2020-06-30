@@ -1,7 +1,7 @@
 
 ![Logo](https://avatars0.githubusercontent.com/u/67481887?s=200&v=4)
-# ClarityScript Proposal
-Proposal for creating a JavaScript compatible language that compiles to [Clarity](https://clarity-lang.org/)
+# ClarityScript
+Creating a JavaScript compatible language that compiles to [Clarity](https://clarity-lang.org/)
 
 ## Abstract
 With a rise of blockchain protocols and smart contract technology there was an emergence of new programming languages designed specifically for Blockchain application. One of such examples is [Clarity](https://clarity-lang.org/), the language powering platforms like [Blockstack](https://blockstack.org/) and [Algorand](https://www.algorand.com/). Clarity closely follows [Lisp](https://lisp-lang.org/) in its syntax and implementation, so it's predictable (not Turing complete) and gurantied to execute in a fixed amount of time while being interpreted in runtime.
