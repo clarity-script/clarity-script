@@ -21,7 +21,7 @@
     "ts-node": "^8.2.0",
     "chai": "^4.2.0",
     "@types/chai": "^4.1.7",
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "@types/mocha": "^5.2.7"
   },
   "dependencies": {
